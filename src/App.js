@@ -1,0 +1,29 @@
+import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import MapPage from './pages/MapPage';
+import Login from './pages/Login';
+import FeedbackAndSupport from './pages/FeedbackAndSupport';
+
+
+function App() {
+  return (
+    <ChakraProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/users" element={<FeedbackAndSupport />} />
+        </Routes>
+      </Router>
+    </ChakraProvider>
+  );
+}
+
+export default App;
