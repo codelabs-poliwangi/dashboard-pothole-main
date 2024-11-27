@@ -6,6 +6,7 @@ const Statistics = () => {
   const [categoryCounts, setCategoryCounts] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // Tambahkan state untuk error handling
+  const [totalData, setTotalData] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +31,24 @@ const Statistics = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { count, error } = await supabase
+        .from('history_deteksi') // Ganti dengan nama tabel Anda
+        .select('*', { count: 'exact' }); // Menambahkan opsi count
+
+      if (error) {
+        console.error('Error fetching data:', error);
+      } else {
+        setTotalData(count);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  
 
   // Responsiveness adjustments
   const boxPadding = useBreakpointValue({ base: 2, md: 4 });
@@ -66,8 +85,25 @@ const Statistics = () => {
               </Text>
               <Text fontSize={fontSize}>{count} kejadian</Text>
             </Box>
+            
           </ListItem>
         ))}
+
+          <Box
+              p={boxPadding}
+              borderRadius="md"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              bg="teal.100" 
+              w="full"
+            >
+              <Text fontWeight="bold" fontSize={fontSize}>
+                Total Kerusakan:
+              </Text>
+              <Text fontSize={fontSize}>{totalData} kejadian</Text>
+            </Box>
+            
       </List>
     </Box>
   );

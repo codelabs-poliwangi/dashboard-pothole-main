@@ -5,6 +5,7 @@ import { Box, Heading, SimpleGrid, useBreakpointValue } from '@chakra-ui/react';
 import Statistics from '../components/Statistics';
 import Grafik from '../components/Grafik';
 import RiwayatDeteksi from '../components/RiwayatDeteksi';
+import TotalDeteksi from '../components/TotalDeteksi';
 
 const Home = () => {
   // Menentukan ukuran card berdasarkan ukuran layar
@@ -17,6 +18,7 @@ const Home = () => {
         Dashboard Monitoring Jalan Rusak
       </Heading>
       <SimpleGrid columns={gridColumns} spacing={8}>
+
         <Box 
           p={5} 
           borderWidth={1} 
