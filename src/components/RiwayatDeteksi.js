@@ -11,7 +11,7 @@ const RiwayatDeteksi = () => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('history_deteksi') 
-        .select('id, jenis_kerusakan, area_kerusakan, volume, latitude, longitude, created_at'); 
+        .select('id, jenis_kerusakan, longitude, latitude, area_kerusakan, kedalaman_rata_rata, volume, waktu_deteksi'); 
 
       if (error) {
         setError(error.message); // Simpan pesan error
@@ -40,11 +40,12 @@ const RiwayatDeteksi = () => {
           <Tr>
             <Th>No</Th>
             <Th>Jenis Kerusakan</Th>
-            <Th>Area Kerusakan</Th>
-            <Th>Volume</Th>
-            <Th>Latitude</Th>
             <Th>Longitude</Th>
-            <Th>Waktu</Th>
+            <Th>Latitude</Th>
+            <Th>Area Kerusakan</Th>
+            <Th>Kedalaman rata - rata</Th>
+            <Th>Volume</Th>
+            <Th>Waktu deteksi</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -52,11 +53,12 @@ const RiwayatDeteksi = () => {
             <Tr key={item.id}>
               <Td>{index + 1}</Td>
               <Td>{item.jenis_kerusakan}</Td>
-              <Td>{item.area_kerusakan} m²</Td>
-              <Td>{item.volume} m³</Td>
-              <Td>{item.latitude}</Td>
               <Td>{item.longitude}</Td>
-              <Td>{item.created_at}</Td>
+              <Td>{item.latitude}</Td>
+              <Td>{item.area_kerusakan} m²</Td>
+              <Td>{item.kedalaman_rata_rata}</Td>
+              <Td>{item.volume} m³</Td>
+              <Td>{item.waktu_deteksi}</Td>
             </Tr>
           ))}
         </Tbody>
