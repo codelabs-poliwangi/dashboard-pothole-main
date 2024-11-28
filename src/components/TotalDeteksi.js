@@ -3,7 +3,6 @@ import { Box, Heading, List, ListItem, Text, useBreakpointValue } from '@chakra-
 import { supabase } from '../services/supabase';
 
 function TotalDeteksi() {
-    //const [totalData, setTotalData] = useState(0);
     const [totalArea, setTotalArea] = useState(0);
     const [totalAreaLubang, setTotalAreaLubang] = useState([]);
     const [totalAreaRetak, setTotalAreaRetak] = useState([]);
