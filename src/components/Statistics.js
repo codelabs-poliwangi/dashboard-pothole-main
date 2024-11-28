@@ -105,7 +105,7 @@ const Statistics = () => {
               w="full"
             >
               <Text fontWeight="bold" fontSize={fontSize}>
-                Total Kerusakan:
+                Total Deteksi:
               </Text>
               <Text fontSize={fontSize}>{totalData} kejadian</Text>
             </Box>
