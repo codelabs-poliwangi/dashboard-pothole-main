@@ -43,10 +43,24 @@ const Home = () => {
         >
           <Grafik />  {/* Menampilkan grafik */}
         </Box>
+
+        <Box p={5} 
+          borderWidth={1} 
+          borderRadius="md" 
+          shadow="md"
+          bg="white"
+          height={cardHeight}
+          display="flex"
+          flexDirection="column">
+        <TotalDeteksi/>  {/* Menampilkan Riwayat Deteksi */}
+      </Box>
+
       </SimpleGrid>
+      
       <Box mt={8}>
         <RiwayatDeteksi />  {/* Menampilkan Riwayat Deteksi */}
       </Box>
+      
     </Box>
   );
 };
