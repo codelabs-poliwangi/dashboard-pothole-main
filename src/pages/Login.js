@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Modal, ModalBody, ModalHeader, ModalOverlay, ModalContent, ModalCloseButton, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
+import { Modal, ModalBody, ModalHeader, ModalOverlay, ModalContent, ModalCloseButton, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 
@@ -24,7 +24,7 @@ const Login = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Login</ModalHeader>
+        <ModalHeader style={{ backgroundColor: '#282c34', color: 'white' }}>Login</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleLogin}>
@@ -35,6 +35,8 @@ const Login = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                bg="#ffffff"
+                borderColor="#61dafb"
               />
             </FormControl>
             <FormControl mb={4}>
@@ -44,9 +46,11 @@ const Login = ({ isOpen, onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                bg="#ffffff"
+                borderColor="#61dafb"
               />
             </FormControl>
-            <Button type="submit" colorScheme="teal" width="full">
+            <Button type="submit" colorScheme="teal" width="full" bg="#61dafb">
               Login
             </Button>
           </form>
