@@ -6,7 +6,7 @@ import Statistics from '../components/Statistics';
 import Grafik from '../components/Grafik';
 import RiwayatDeteksi from '../components/RiwayatDeteksi';
 import TotalDeteksi from '../components/TotalDeteksi';
-
+import Login from '../pages/Login';
 const Home = () => {
   // Menentukan ukuran card berdasarkan ukuran layar
   const cardHeight = useBreakpointValue({ base: '300px', md: '500px' });
