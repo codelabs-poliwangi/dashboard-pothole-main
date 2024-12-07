@@ -13,7 +13,7 @@ const Navbar = () => {
         <Flex align="center">
           <Image src="/logoo.png" alt="Logo" boxSize={{ base: "30px", md: "40px" }} mr={4} />
           <Link as={RouterLink} to="/home" fontWeight="bold" fontSize="xl">
-            VGtech Pavement Detector
+            VGtec Pavement Detector
           </Link>
         </Flex>
         
