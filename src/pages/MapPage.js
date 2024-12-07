@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
 import Map from '../components/Map';
+import { supabase } from '../services/supabase';
 
 const MapPage = () => {
   return (
