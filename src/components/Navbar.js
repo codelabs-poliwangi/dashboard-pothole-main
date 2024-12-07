@@ -36,6 +36,9 @@ const Navbar = () => {
           <Link as={RouterLink} to="/users" px={4}>
             Feedback and Support
           </Link>
+          <Link as={RouterLink} to="/" px={4}>
+            Logout
+          </Link>
         </Flex>
       </Flex>
       
@@ -54,6 +57,9 @@ const Navbar = () => {
               </Link>
               <Link as={RouterLink} to="/users" py={2} onClick={onClose}>
                 Feedback and Support
+              </Link>
+              <Link as={RouterLink} to="/" py={2} onClick={onClose}>
+                Logout
               </Link>
             </Flex>
           </DrawerBody>
