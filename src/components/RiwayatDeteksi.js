@@ -24,12 +24,7 @@ const RiwayatDeteksi = () => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('history_deteksi') 
-<<<<<<< HEAD
         .select('id, jenis_kerusakan, longitude, latitude, area_kerusakan, kedalaman_rata_rata, volume, waktu_deteksi').order("waktu_deteksi",{ascending :false}).limit(20); 
-=======
-        .select('id, jenis_kerusakan, longitude, latitude, area_kerusakan, kedalaman_rata_rata, volume, waktu_deteksi'); 
-
->>>>>>> 58c6628d4fb5fdcd99305aa742548e361bc28ecd
       if (error) {
         setError(error.message);
       } else {
@@ -85,15 +80,9 @@ const RiwayatDeteksi = () => {
             <Th>Longitude</Th>
             <Th>Latitude</Th>
             <Th>Area Kerusakan</Th>
-<<<<<<< HEAD
             <Th>Kedalaman Rata-rata</Th>
             <Th>Volume</Th>
             <Th>Waktu Deteksi</Th>
-=======
-            <Th>Kedalaman rata - rata</Th>
-            <Th>Volume</Th>
-            <Th>Waktu deteksi</Th>
->>>>>>> 58c6628d4fb5fdcd99305aa742548e361bc28ecd
           </Tr>
         </Thead>
         <Tbody>
@@ -101,13 +90,8 @@ const RiwayatDeteksi = () => {
             <Tr key={item.id}>
               <Td>{index + 1}</Td>
               <Td>{item.jenis_kerusakan}</Td>
-<<<<<<< HEAD
               <Td>{item.longitude || "Data tidak tersedia"}</Td>
               <Td>{item.latitude || "Data tidak tersedia"}</Td>
-=======
-              <Td>{item.longitude}</Td>
-              <Td>{item.latitude}</Td>
->>>>>>> 58c6628d4fb5fdcd99305aa742548e361bc28ecd
               <Td>{item.area_kerusakan} m²</Td>
               <Td>{item.kedalaman_rata_rata}</Td>
               <Td>{item.volume} m³</Td>

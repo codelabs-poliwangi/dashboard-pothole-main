@@ -14,10 +14,6 @@
     "axios": "^1.7.8",
     "chart.js": "^4.4.4",
     "framer-motion": "^11.13.1",
-<<<<<<< HEAD
-=======
-    "isexe": "^3.1.1",
->>>>>>> 58c6628d4fb5fdcd99305aa742548e361bc28ecd
     "leaflet": "^1.9.4",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",

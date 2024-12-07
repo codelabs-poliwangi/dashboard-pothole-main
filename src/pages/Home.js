@@ -3,6 +3,7 @@ import { Box, Heading, SimpleGrid, useBreakpointValue, Button, Flex } from '@cha
 import { CSVLink } from 'react-csv';
 import Statistics from '../components/Statistics';
 import Grafik from '../components/Grafik';
+import GrafikPie from '../components/GrafikPie';
 import RiwayatDeteksi from '../components/RiwayatDeteksi';
 import TotalDeteksi from '../components/TotalDeteksi';
 
