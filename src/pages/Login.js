@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabase'; // Pastikan file supabase.js sudah dikonfigurasi
+import { supabase_login } from '../services/supabase_login'; // Pastikan file supabase.js sudah dikonfigurasi
 
 const Login = () => {
   const navigate = useNavigate(); // Untuk navigasi halaman
@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault(); // Mencegah reload halaman saat form dikirim
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase_login.auth.signInWithPassword({
         email,
         password,
       });
