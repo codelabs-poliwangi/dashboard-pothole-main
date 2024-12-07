@@ -27,10 +27,10 @@ const Statistics = () => {
         }, {});
 
         const totalVolumeSum = validData.reduce((sum, curr)=>sum+(curr.volume || 0), 0);
-
+        const sumVolumetotal = totalVolumeSum.toFixed(2);
         setCategoryCounts(counts);
         setTotalData(validData.length);
-        setTotalVolume(totalVolumeSum);
+        setTotalVolume(sumVolumetotal);
       }
       setLoading(false);
     };
