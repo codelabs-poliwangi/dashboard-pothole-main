@@ -5,7 +5,6 @@ import Statistics from '../components/Statistics';
 import Grafik from '../components/Grafik';
 import RiwayatDeteksi from '../components/RiwayatDeteksi';
 import TotalDeteksi from '../components/TotalDeteksi';
-import GrafikPie from '../components/GrafikPie';
 
 const Home = () => {
   const [detectionData, setDetectionData] = useState([]); 
