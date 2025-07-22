@@ -1,11 +1,12 @@
+// src/components/MapComponent.js
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Box, Select, Text } from '@chakra-ui/react';
+import { Box, Select, Text, Spinner } from '@chakra-ui/react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { supabase } from '../services/supabase';
 
-// Atur ikon default jika ikon marker tidak muncul
+// Ikon bawaan Leaflet
 const defaultIcon = new L.Icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   iconSize: [25, 41],
@@ -13,90 +14,98 @@ const defaultIcon = new L.Icon({
   popupAnchor: [1, -34],
 });
 
-const MapComponent = () => {
+export default function MapComponent() {
   const [potholes, setPotholes] = useState([]);
-  const [filter, setFilter] = useState('all');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [filter, setFilter]     = useState('all');
+  const [error, setError]       = useState('');
+  const [loading, setLoading]   = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
+      setLoading(true);
       const { data, error } = await supabase
-        .from('history_deteksi') // Pastikan nama tabel benar
-        .select('id, jenis_kerusakan, latitude, longitude'); // Ambil kolom yang relevan
-
+        .from('history_deteksi')
+        .select('id, jenis_kerusakan, latitude, longitude, waktu_deteksi');
       if (error) {
-        setError(error.message); // Simpan pesan error
+        setError(error.message);
       } else {
-        setPotholes(
-          data.map(item => ({
-            id: item.id,
-            damage_type: item.jenis_kerusakan,
-            location: [item.latitude, item.longitude, parseFloat(item.longitude)],
-          }))
-        );
+        // Map data: parse coords to float, keep damage type
+        const parsed = data
+          .map(item => {
+            const lat = parseFloat(item.latitude);
+            const lng = parseFloat(item.longitude);
+            if (isNaN(lat) || isNaN(lng)) return null;
+            return {
+              id: item.id,
+              jenis: item.jenis_kerusakan,
+              position: [lat, lng],
+              waktu_deteksi: item.waktu_deteksi,
+            };
+          })
+          .filter(Boolean);
+        setPotholes(parsed);
       }
       setLoading(false);
-    };
-
-    fetchData();
+    })();
   }, []);
 
-  const filteredPotholes =
-    filter === 'all' ? potholes : potholes.filter(p => p.damage_type === filter);
+  // Buat list opsi berdasarkan data unik
+  const jenisOptions = Array.from(
+    new Set(potholes.map(p => p.jenis))
+  );
+
+  // Filter data
+  const shown = filter === 'all'
+    ? potholes
+    : potholes.filter(p => p.jenis === filter);
 
   return (
-    <Box height="80vh" width="100%" p={4} borderRadius="lg" boxShadow="lg" overflow="hidden">
+    <Box h="80vh" w="100%" p={4} borderRadius="lg" boxShadow="lg" overflow="hidden">
       {error && <Text color="red.500">Error: {error}</Text>}
       {loading ? (
-        <Text>Loading...</Text>
+        <Spinner size="xl" />
       ) : (
         <>
           <Select
+            value={filter}
             onChange={e => setFilter(e.target.value)}
             mb={4}
-            placeholder="Pilih Kategori Kerusakan"
+            placeholder="Semua Jenis Kerusakan"
           >
-            <option value="all">Semua Kategori Kerusakan</option>
-            <option value="jalan amblas">Jalan Amblas</option>
-            <option value="jalan retak">Jalan Retak</option>
-            <option value="jalan gelombang">Jalan Gelombang</option>
-            <option value="jalan lubang">Jalan Lubang</option>
+            <option value="all">Semua Jenis Kerusakan</option>
+            {jenisOptions.map(j => (
+              <option key={j} value={j}>
+                {j}
+              </option>
+            ))}
           </Select>
 
-          <Box flex="1" position="relative" height="100%">
+          <Box h="calc(100% - 56px)" /* kurangi height Select + padding */>
             <MapContainer
-              center={[-8.420508, 114.104987]}
-              zoom={13}
+              center={[-8.35, 114.27]}
+              zoom={12}
+              scrollWheelZoom={false}
               style={{ height: '100%', width: '100%' }}
             >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              {filteredPotholes.map(pothole => {
-                if (pothole.location && pothole.location.length === 2) {
-                const [lat, lng] = pothole.location;
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
 
-                if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
-                  return (
-                    <Marker key={pothole.id} position={[lat, lng]} icon={defaultIcon}>
-                      <Popup>
-                        <strong>Jenis Kerusakan:</strong> {pothole.damage_type}
-                        <br />
-                        <strong>Lokasi:</strong> {pothole.location.join(', ')}
-                      </Popup>
-                    </Marker>
-                  );
-                } 
-              }
-                  return null; // Abaikan data dengan koordinat tidak valid
-                })}
-          
-            
+              {shown.map(p => (
+                <Marker key={p.id} position={p.position} icon={defaultIcon}>
+                  <Popup>
+                    <Text fontWeight="bold">{p.jenis}</Text>
+                    <Text fontSize="sm">
+                      Deteksi: {new Date(p.waktu_deteksi).toLocaleString()}
+                    </Text>
+                  </Popup>
+                </Marker>
+              ))}
             </MapContainer>
           </Box>
         </>
       )}
     </Box>
   );
-};
-
-export default MapComponent;
+}
